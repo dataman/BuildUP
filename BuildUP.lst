@@ -1,0 +1,206 @@
+   1               		.file	"BuildUP.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.init3,"ax",@progbits
+   9               	.global	init
+  11               	init:
+  12               	/* prologue: naked */
+  13               	/* frame size = 0 */
+  14 0000 80E8      		ldi r24,lo8(-128)
+  15 0002 88B9      		out 40-32,r24
+  16 0004 8FE3      		ldi r24,lo8(63)
+  17 0006 84BB      		out 52-32,r24
+  18 0008 04B6      		in __tmp_reg__,84-32
+  19 000a 00FC      		sbrc __tmp_reg__,0
+  20 000c 00C0      		rjmp .L5
+  21               	.L2:
+  22 000e 04B6      		in __tmp_reg__,84-32
+  23 0010 01FE      		sbrs __tmp_reg__,1
+  24 0012 00C0      		rjmp .L3
+  25 0014 8091 0000 		lds r24,mode
+  26 0018 8F5F      		subi r24,lo8(-(1))
+  27 001a 8093 0000 		sts mode,r24
+  28 001e 8091 0000 		lds r24,mode
+  29 0022 8230      		cpi r24,lo8(2)
+  30 0024 00F0      		brlo .L3
+  31               	.L5:
+  32 0026 1092 0000 		sts mode,__zero_reg__
+  33               	.L3:
+  34 002a 14BE      		out 84-32,__zero_reg__
+  35 002c 81E0      		ldi r24,lo8(1)
+  36 002e 88BB      		out 56-32,r24
+  37 0030 87BB      		out 55-32,r24
+  38 0032 83BF      		out 83-32,r24
+  39 0034 82E0      		ldi r24,lo8(2)
+  40 0036 89BF      		out 89-32,r24
+  41               	/* #APP */
+  42               	 ;  92 "BuildUP.c" 1
+  43 0038 7894      		sei
+  44               	 ;  0 "" 2
+  45               	/* epilogue start */
+  46               	/* #NOAPP */
+  48               		.text
+  49               	.global	delay
+  51               	delay:
+  52               	/* prologue: function */
+  53               	/* frame size = 0 */
+  54 0000 9093 0000 		sts (downcounter)+1,r25
+  55 0004 8093 0000 		sts downcounter,r24
+  56 0008 20E6      		ldi r18,lo8(96)
+  57 000a 00C0      		rjmp .L7
+  58               	.L8:
+  59 000c 25BF      		out 85-32,r18
+  60               	/* #APP */
+  61               	 ;  107 "BuildUP.c" 1
+  62 000e 8895      		sleep
+  63               	 ;  0 "" 2
+  64               	/* #NOAPP */
+  65               	.L7:
+  66 0010 8091 0000 		lds r24,downcounter
+  67 0014 9091 0000 		lds r25,(downcounter)+1
+  68 0018 892B      		or r24,r25
+  69 001a 01F4      		brne .L8
+  70               	/* epilogue start */
+  71 001c 0895      		ret
+  73               	.global	blink
+  75               	blink:
+  76               	/* prologue: function */
+  77               	/* frame size = 0 */
+  78 001e 24EF      		ldi r18,lo8(500)
+  79 0020 31E0      		ldi r19,hi8(500)
+  80 0022 50E6      		ldi r21,lo8(96)
+  81 0024 E1E0      		ldi r30,lo8(1)
+  82 0026 6EE1      		ldi r22,lo8(30)
+  83 0028 70E0      		ldi r23,hi8(30)
+  84               	.L16:
+  85 002a 4AE0      		ldi r20,lo8(10)
+  86               	.L21:
+  87 002c 18BA      		out 56-32,__zero_reg__
+  88 002e 7093 0000 		sts (downcounter)+1,r23
+  89 0032 6093 0000 		sts downcounter,r22
+  90 0036 00C0      		rjmp .L12
+  91               	.L13:
+  92 0038 55BF      		out 85-32,r21
+  93               	/* #APP */
+  94               	 ;  107 "BuildUP.c" 1
+  95 003a 8895      		sleep
+  96               	 ;  0 "" 2
+  97               	/* #NOAPP */
+  98               	.L12:
+  99 003c 8091 0000 		lds r24,downcounter
+ 100 0040 9091 0000 		lds r25,(downcounter)+1
+ 101 0044 892B      		or r24,r25
+ 102 0046 01F4      		brne .L13
+ 103 0048 E8BB      		out 56-32,r30
+ 104 004a 3093 0000 		sts (downcounter)+1,r19
+ 105 004e 2093 0000 		sts downcounter,r18
+ 106 0052 00C0      		rjmp .L14
+ 107               	.L15:
+ 108 0054 55BF      		out 85-32,r21
+ 109               	/* #APP */
+ 110               	 ;  107 "BuildUP.c" 1
+ 111 0056 8895      		sleep
+ 112               	 ;  0 "" 2
+ 113               	/* #NOAPP */
+ 114               	.L14:
+ 115 0058 8091 0000 		lds r24,downcounter
+ 116 005c 9091 0000 		lds r25,(downcounter)+1
+ 117 0060 892B      		or r24,r25
+ 118 0062 01F4      		brne .L15
+ 119 0064 4150      		subi r20,lo8(-(-1))
+ 120 0066 01F4      		brne .L21
+ 121 0068 2115      		cp r18,__zero_reg__
+ 122 006a 3105      		cpc r19,__zero_reg__
+ 123 006c 01F0      		breq .L16
+ 124 006e 2951      		subi r18,lo8(-(-25))
+ 125 0070 3040      		sbci r19,hi8(-(-25))
+ 126 0072 00C0      		rjmp .L16
+ 128               	.global	main
+ 130               	main:
+ 131               	/* prologue: function */
+ 132               	/* frame size = 0 */
+ 133 0074 8091 0000 		lds r24,mode
+ 134 0078 8823      		tst r24
+ 135 007a 01F0      		breq .L24
+ 136 007c 8130      		cpi r24,lo8(1)
+ 137 007e 01F4      		brne .L27
+ 138 0080 00C0      		rjmp .L28
+ 139               	.L24:
+ 140 0082 00D0      		rcall blink
+ 141 0084 0895      		ret
+ 142               	.L28:
+ 143 0086 8FE1      		ldi r24,lo8(31)
+ 144 0088 88BB      		out 56-32,r24
+ 145 008a 83E0      		ldi r24,lo8(3)
+ 146 008c 22E0      		ldi r18,lo8(2)
+ 147 008e 90E7      		ldi r25,lo8(112)
+ 148               	.L26:
+ 149               	/* #APP */
+ 150               	 ;  152 "BuildUP.c" 1
+ 151 0090 F894      		cli
+ 152               	 ;  0 "" 2
+ 153               	/* #NOAPP */
+ 154 0092 8CBF      		out 92-32,r24
+ 155 0094 80BF      		out 80-32,r24
+ 156 0096 20BF      		out 80-32,r18
+ 157 0098 95BF      		out 85-32,r25
+ 158               	/* #APP */
+ 159               	 ;  157 "BuildUP.c" 1
+ 160 009a 8895      		sleep
+ 161               	 ;  0 "" 2
+ 162               	/* #NOAPP */
+ 163 009c 00C0      		rjmp .L26
+ 164               	.L27:
+ 165 009e 0895      		ret
+ 167               	.global	__vector_3
+ 169               	__vector_3:
+ 170 00a0 1F92      		push __zero_reg__
+ 171 00a2 0F92      		push r0
+ 172 00a4 0FB6      		in r0,__SREG__
+ 173 00a6 0F92      		push r0
+ 174 00a8 1124      		clr __zero_reg__
+ 175 00aa 8F93      		push r24
+ 176 00ac 9F93      		push r25
+ 177               	/* prologue: Signal */
+ 178               	/* frame size = 0 */
+ 179 00ae 8091 0000 		lds r24,downcounter
+ 180 00b2 9091 0000 		lds r25,(downcounter)+1
+ 181 00b6 0197      		sbiw r24,1
+ 182 00b8 9093 0000 		sts (downcounter)+1,r25
+ 183 00bc 8093 0000 		sts downcounter,r24
+ 184               	/* epilogue start */
+ 185 00c0 9F91      		pop r25
+ 186 00c2 8F91      		pop r24
+ 187 00c4 0F90      		pop r0
+ 188 00c6 0FBE      		out __SREG__,r0
+ 189 00c8 0F90      		pop r0
+ 190 00ca 1F90      		pop __zero_reg__
+ 191 00cc 1895      		reti
+ 193               	.global	mode
+ 194               		.section	.noinit,"aw",@nobits
+ 197               	mode:
+ 198 0000 00        		.skip 1,0
+ 199               		.comm downcounter,2,1
+ 200               	.global __do_clear_bss
+DEFINED SYMBOLS
+                            *ABS*:00000000 BuildUP.c
+C:\Users\CRJones\AppData\Local\Temp/cckNrZ0F.s:2      *ABS*:0000003f __SREG__
+C:\Users\CRJones\AppData\Local\Temp/cckNrZ0F.s:3      *ABS*:0000003e __SP_H__
+C:\Users\CRJones\AppData\Local\Temp/cckNrZ0F.s:4      *ABS*:0000003d __SP_L__
+C:\Users\CRJones\AppData\Local\Temp/cckNrZ0F.s:5      *ABS*:00000034 __CCP__
+C:\Users\CRJones\AppData\Local\Temp/cckNrZ0F.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\CRJones\AppData\Local\Temp/cckNrZ0F.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\CRJones\AppData\Local\Temp/cckNrZ0F.s:11     .init3:00000000 init
+C:\Users\CRJones\AppData\Local\Temp/cckNrZ0F.s:197    .noinit:00000000 mode
+C:\Users\CRJones\AppData\Local\Temp/cckNrZ0F.s:51     .text:00000000 delay
+                            *COM*:00000002 downcounter
+C:\Users\CRJones\AppData\Local\Temp/cckNrZ0F.s:75     .text:0000001e blink
+C:\Users\CRJones\AppData\Local\Temp/cckNrZ0F.s:130    .text:00000074 main
+C:\Users\CRJones\AppData\Local\Temp/cckNrZ0F.s:169    .text:000000a0 __vector_3
+
+UNDEFINED SYMBOLS
+__do_clear_bss
