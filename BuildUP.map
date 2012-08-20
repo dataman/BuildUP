@@ -9,6 +9,7 @@ Allocating common symbols
 Common symbol       size              file
 
 downcounter         0x2               BuildUP.o
+upcounter           0x2               BuildUP.o
 
 Memory Configuration
 
@@ -120,7 +121,7 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr25\libgcc.a
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0x13e
+.text           0x00000000      0x168
  *(.vectors)
  .vectors       0x00000000       0x14 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr25/crttn13.o
                 0x00000000                __vectors
@@ -185,22 +186,22 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr25\libgcc.a
                 0x0000006a                __vector_9
                 0x0000006a                __vector_2
                 0x0000006a                __vector_8
- .text          0x0000006c       0xce BuildUP.o
-                0x0000010c                __vector_3
+ .text          0x0000006c       0xf8 BuildUP.o
+                0x00000124                __vector_3
                 0x0000008a                blink
-                0x000000e0                main
+                0x000000f8                main
                 0x0000006c                delay
- .text          0x0000013a        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr25\libgcc.a(_exit.o)
- .text          0x0000013a        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr25\libgcc.a(_clear_bss.o)
-                0x0000013a                . = ALIGN (0x2)
+ .text          0x00000164        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr25\libgcc.a(_exit.o)
+ .text          0x00000164        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr25\libgcc.a(_clear_bss.o)
+                0x00000164                . = ALIGN (0x2)
  *(.text.*)
- .text.libgcc   0x0000013a        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr25\libgcc.a(_exit.o)
- .text.libgcc   0x0000013a        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr25\libgcc.a(_clear_bss.o)
-                0x0000013a                . = ALIGN (0x2)
+ .text.libgcc   0x00000164        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr25\libgcc.a(_exit.o)
+ .text.libgcc   0x00000164        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr25\libgcc.a(_clear_bss.o)
+                0x00000164                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x0000013a        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr25\libgcc.a(_exit.o)
-                0x0000013a                exit
-                0x0000013a                _exit
+ .fini9         0x00000164        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr25\libgcc.a(_exit.o)
+                0x00000164                exit
+                0x00000164                _exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -219,11 +220,11 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr25\libgcc.a
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x0000013a        0x4 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr25\libgcc.a(_exit.o)
+ .fini0         0x00000164        0x4 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr25\libgcc.a(_exit.o)
  *(.fini0)
-                0x0000013e                _etext = .
+                0x00000168                _etext = .
 
-.data           0x00800060        0x0 load address 0x0000013e
+.data           0x00800060        0x0 load address 0x00000168
                 0x00800060                PROVIDE (__data_start, .)
  *(.data)
  .data          0x00800060        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr25/crttn13.o
@@ -238,7 +239,7 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr25\libgcc.a
                 0x00800060                _edata = .
                 0x00800060                PROVIDE (__data_end, .)
 
-.bss            0x00800060        0x2
+.bss            0x00800060        0x4
                 0x00800060                PROVIDE (__bss_start, .)
  *(.bss)
  .bss           0x00800060        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr25/crttn13.o
@@ -247,20 +248,21 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr25\libgcc.a
  .bss           0x00800060        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr25\libgcc.a(_clear_bss.o)
  *(.bss*)
  *(COMMON)
- COMMON         0x00800060        0x2 BuildUP.o
+ COMMON         0x00800060        0x4 BuildUP.o
                 0x00800060                downcounter
-                0x00800062                PROVIDE (__bss_end, .)
-                0x0000013e                __data_load_start = LOADADDR (.data)
-                0x0000013e                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x00800062                upcounter
+                0x00800064                PROVIDE (__bss_end, .)
+                0x00000168                __data_load_start = LOADADDR (.data)
+                0x00000168                __data_load_end = (__data_load_start + SIZEOF (.data))
 
-.noinit         0x00800062        0x1
-                0x00800062                PROVIDE (__noinit_start, .)
+.noinit         0x00800064        0x1
+                0x00800064                PROVIDE (__noinit_start, .)
  *(.noinit*)
- .noinit        0x00800062        0x1 BuildUP.o
-                0x00800062                mode
-                0x00800063                PROVIDE (__noinit_end, .)
-                0x00800063                _end = .
-                0x00800063                PROVIDE (__heap_start, .)
+ .noinit        0x00800064        0x1 BuildUP.o
+                0x00800064                mode
+                0x00800065                PROVIDE (__noinit_end, .)
+                0x00800065                _end = .
+                0x00800065                PROVIDE (__heap_start, .)
 
 .eeprom         0x00810000        0x0
  *(.eeprom*)
@@ -374,3 +376,4 @@ init                                              BuildUP.o
 main                                              BuildUP.o
                                                   c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr25/crttn13.o
 mode                                              BuildUP.o
+upcounter                                         BuildUP.o

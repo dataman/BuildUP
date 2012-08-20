@@ -119,14 +119,13 @@ void delay(uint16_t n) {
 void blink();
 void blink() {
 	uint16_t idelay = DELAYOFFSTART;
-	uint8_t icounter = DELAYCOUNTRESET;
 	upcounter = 0;
 	while (1) {
 		PORTB = 1;
 		delay(DELAYON);
 		PORTB = 0;
 		delay(idelay);
-		if (upcounter >= UPCOUNTERMAX)
+		if (upcounter >= UPCOUNTERMAX) {
  		  upcounter = 0;
 		  if (idelay>DELAYSTOP) idelay-=DELAYSTEP;
 		}
