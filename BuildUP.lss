@@ -90,13 +90,13 @@ Disassembly of section .text:
   88:	08 95       	ret
 
 0000008a <blink>:
-  8a:	24 ef       	ldi	r18, 0xF4	; 244
+  8a:	24 e7       	ldi	r18, 0x74	; 116
   8c:	31 e0       	ldi	r19, 0x01	; 1
   8e:	50 e6       	ldi	r21, 0x60	; 96
   90:	e1 e0       	ldi	r30, 0x01	; 1
   92:	6e e1       	ldi	r22, 0x1E	; 30
   94:	70 e0       	ldi	r23, 0x00	; 0
-  96:	4a e0       	ldi	r20, 0x0A	; 10
+  96:	4c e0       	ldi	r20, 0x0C	; 12
   98:	18 ba       	out	0x18, r1	; 24
   9a:	70 93 61 00 	sts	0x0061, r23
   9e:	60 93 60 00 	sts	0x0060, r22
@@ -122,7 +122,7 @@ Disassembly of section .text:
   d4:	21 15       	cp	r18, r1
   d6:	31 05       	cpc	r19, r1
   d8:	f1 f2       	breq	.-68     	; 0x96 <blink+0xc>
-  da:	29 51       	subi	r18, 0x19	; 25
+  da:	2e 53       	subi	r18, 0x3E	; 62
   dc:	30 40       	sbci	r19, 0x00	; 0
   de:	db cf       	rjmp	.-74     	; 0x96 <blink+0xc>
 

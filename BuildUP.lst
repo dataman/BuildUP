@@ -70,14 +70,14 @@
   75               	blink:
   76               	/* prologue: function */
   77               	/* frame size = 0 */
-  78 001e 24EF      		ldi r18,lo8(500)
-  79 0020 31E0      		ldi r19,hi8(500)
+  78 001e 24E7      		ldi r18,lo8(372)
+  79 0020 31E0      		ldi r19,hi8(372)
   80 0022 50E6      		ldi r21,lo8(96)
   81 0024 E1E0      		ldi r30,lo8(1)
   82 0026 6EE1      		ldi r22,lo8(30)
   83 0028 70E0      		ldi r23,hi8(30)
   84               	.L16:
-  85 002a 4AE0      		ldi r20,lo8(10)
+  85 002a 4CE0      		ldi r20,lo8(12)
   86               	.L21:
   87 002c 18BA      		out 56-32,__zero_reg__
   88 002e 7093 0000 		sts (downcounter)+1,r23
@@ -116,8 +116,8 @@
  121 0068 2115      		cp r18,__zero_reg__
  122 006a 3105      		cpc r19,__zero_reg__
  123 006c 01F0      		breq .L16
- 124 006e 2951      		subi r18,lo8(-(-25))
- 125 0070 3040      		sbci r19,hi8(-(-25))
+ 124 006e 2E53      		subi r18,lo8(-(-62))
+ 125 0070 3040      		sbci r19,hi8(-(-62))
  126 0072 00C0      		rjmp .L16
  128               	.global	main
  130               	main:
@@ -188,19 +188,19 @@
  200               	.global __do_clear_bss
 DEFINED SYMBOLS
                             *ABS*:00000000 BuildUP.c
-C:\Users\CRJones\AppData\Local\Temp/cckNrZ0F.s:2      *ABS*:0000003f __SREG__
-C:\Users\CRJones\AppData\Local\Temp/cckNrZ0F.s:3      *ABS*:0000003e __SP_H__
-C:\Users\CRJones\AppData\Local\Temp/cckNrZ0F.s:4      *ABS*:0000003d __SP_L__
-C:\Users\CRJones\AppData\Local\Temp/cckNrZ0F.s:5      *ABS*:00000034 __CCP__
-C:\Users\CRJones\AppData\Local\Temp/cckNrZ0F.s:6      *ABS*:00000000 __tmp_reg__
-C:\Users\CRJones\AppData\Local\Temp/cckNrZ0F.s:7      *ABS*:00000001 __zero_reg__
-C:\Users\CRJones\AppData\Local\Temp/cckNrZ0F.s:11     .init3:00000000 init
-C:\Users\CRJones\AppData\Local\Temp/cckNrZ0F.s:197    .noinit:00000000 mode
-C:\Users\CRJones\AppData\Local\Temp/cckNrZ0F.s:51     .text:00000000 delay
+C:\Users\CRJones\AppData\Local\Temp/cc0bcFYh.s:2      *ABS*:0000003f __SREG__
+C:\Users\CRJones\AppData\Local\Temp/cc0bcFYh.s:3      *ABS*:0000003e __SP_H__
+C:\Users\CRJones\AppData\Local\Temp/cc0bcFYh.s:4      *ABS*:0000003d __SP_L__
+C:\Users\CRJones\AppData\Local\Temp/cc0bcFYh.s:5      *ABS*:00000034 __CCP__
+C:\Users\CRJones\AppData\Local\Temp/cc0bcFYh.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\CRJones\AppData\Local\Temp/cc0bcFYh.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\CRJones\AppData\Local\Temp/cc0bcFYh.s:11     .init3:00000000 init
+C:\Users\CRJones\AppData\Local\Temp/cc0bcFYh.s:197    .noinit:00000000 mode
+C:\Users\CRJones\AppData\Local\Temp/cc0bcFYh.s:51     .text:00000000 delay
                             *COM*:00000002 downcounter
-C:\Users\CRJones\AppData\Local\Temp/cckNrZ0F.s:75     .text:0000001e blink
-C:\Users\CRJones\AppData\Local\Temp/cckNrZ0F.s:130    .text:00000074 main
-C:\Users\CRJones\AppData\Local\Temp/cckNrZ0F.s:169    .text:000000a0 __vector_3
+C:\Users\CRJones\AppData\Local\Temp/cc0bcFYh.s:75     .text:0000001e blink
+C:\Users\CRJones\AppData\Local\Temp/cc0bcFYh.s:130    .text:00000074 main
+C:\Users\CRJones\AppData\Local\Temp/cc0bcFYh.s:169    .text:000000a0 __vector_3
 
 UNDEFINED SYMBOLS
 __do_clear_bss

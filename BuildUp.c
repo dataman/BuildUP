@@ -110,9 +110,9 @@ void delay(uint16_t n) {
 
 
 #define DELAYON         30     // How long is LED on, not variable
-#define DELAYOFFSTART   500    // How long is LED off, variable
-#define DELAYCOUNTRESET 10     // Decrease off delay after how many flashes
-#define DELAYSTEP       25     // Step to decrease delay
+#define DELAYOFFSTART   372    // How long is LED off, variable
+#define DELAYCOUNTRESET 12     // Decrease off delay after how many flashes
+#define DELAYSTEP       62     // Step to decrease delay
 
 void blink();
 void blink() {
