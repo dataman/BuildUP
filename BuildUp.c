@@ -97,6 +97,7 @@ void init(void) {
 ///////////////////////////////////////////////////////////////////////////////
 
 volatile uint16_t downcounter;
+volatile uint16_t upcounter;
 
 void delay(uint16_t n) {
 
@@ -110,26 +111,26 @@ void delay(uint16_t n) {
 
 
 #define DELAYON         30     // How long is LED on, not variable
-#define DELAYOFFSTART   372    // How long is LED off, variable
-#define DELAYCOUNTRESET 12     // Decrease off delay after how many flashes
-#define DELAYSTEP       62     // Step to decrease delay
+#define DELAYOFFSTART   180    // How long is LED off, variable
+#define DELAYSTEP       30     // Step to decrease delay
+#define DELAYSTOP       30     // Don't step lower than this
+#define UPCOUNTERMAX    1200   // Max Upcounter for next step down
 
 void blink();
 void blink() {
 	uint16_t idelay = DELAYOFFSTART;
 	uint8_t icounter = DELAYCOUNTRESET;
+	upcounter = 0;
 	while (1) {
-		PORTB = 0;
-		delay(DELAYON);
 		PORTB = 1;
+		delay(DELAYON);
+		PORTB = 0;
 		delay(idelay);
-		if (!--icounter) {
- 		  icounter = DELAYCOUNTRESET;
-		  if (idelay) idelay-=DELAYSTEP;
+		if (upcounter >= UPCOUNTERMAX)
+ 		  upcounter = 0;
+		  if (idelay>DELAYSTOP) idelay-=DELAYSTEP;
 		}
-	}
-	
-
+	}	
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -166,6 +167,7 @@ void main(void) {
 ISR(TIM0_OVF_vect) {
 
 	downcounter--; // decrement downcounter for delay functions
+	upcounter++;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
