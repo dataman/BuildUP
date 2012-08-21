@@ -60,7 +60,7 @@ void init(void) {
 	// determine cause of device reset;  act accordingly
 
 	if(bit_is_set(MCUSR, PORF)) {
-		mode = MODE_0; // power on!
+		mode = MODE_MAX; // power on!
 	} else if(bit_is_set(MCUSR, EXTRF)) {
 		mode++; // advance mode
 		if(mode > MODE_MAX) {
@@ -81,9 +81,9 @@ void init(void) {
 	//	PB4		3		PCINT4/ADC2			D5 N/A
 	//	PB5		1		PCINT5/-RESET/ADC0/dW		MODE advance pushbutton
 
-	PORTB = 0<<PORTB5 | 0<<PORTB4 | 0<<PORTB3 | 0<<PORTB2 | 0<<PORTB1 | 1<<PORTB0;
+	PORTB = 0;
 	DDRB = 0<<DDB5 | 0<<DDB4 | 0<<DDB3 | 0<<DDB2 | 0<<DDB1 | 1<<DDB0;
-
+                   
 	// initialize ATtiny13 timer/counter
 
 	TCCR0B = 0<<FOC0A | 0<<FOC0B | 0<<WGM02 | 0<<CS02 | 0<<CS01 | 1<<CS00;
@@ -111,7 +111,7 @@ void delay(uint16_t n) {
 
 
 #define DELAYON         30     // How long is LED on, not variable
-#define DELAYOFFSTART   180    // How long is LED off, variable
+#define DELAYOFFSTART   210    // How long is LED off, variable
 #define DELAYSTEP       30     // Step to decrease delay
 #define DELAYSTOP       30     // Don't step lower than this
 #define UPCOUNTERMAX    1200   // Max Upcounter for next step down
@@ -146,7 +146,7 @@ void main(void) {
 
 
 		case MODE_MAX: // off
-			PORTB = 0b00011111; // all LEDs off
+			PORTB = 0; // all LEDs off
 			while(1) {
 				// deepest sleep mode
 				cli(); // disable interrupts

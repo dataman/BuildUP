@@ -31,8 +31,8 @@
   32 0026 1092 0000 		sts mode,__zero_reg__
   33               	.L3:
   34 002a 14BE      		out 84-32,__zero_reg__
-  35 002c 81E0      		ldi r24,lo8(1)
-  36 002e 88BB      		out 56-32,r24
+  35 002c 18BA      		out 56-32,__zero_reg__
+  36 002e 81E0      		ldi r24,lo8(1)
   37 0030 87BB      		out 55-32,r24
   38 0032 83BF      		out 83-32,r24
   39 0034 82E0      		ldi r24,lo8(2)
@@ -138,81 +138,80 @@
  145 009a 00D0      		rcall blink
  146 009c 0895      		ret
  147               	.L26:
- 148 009e 8FE1      		ldi r24,lo8(31)
- 149 00a0 88BB      		out 56-32,r24
- 150 00a2 83E0      		ldi r24,lo8(3)
- 151 00a4 22E0      		ldi r18,lo8(2)
- 152 00a6 90E7      		ldi r25,lo8(112)
- 153               	.L24:
- 154               	/* #APP */
- 155               	 ;  152 "BuildUP.c" 1
- 156 00a8 F894      		cli
- 157               	 ;  0 "" 2
- 158               	/* #NOAPP */
- 159 00aa 8CBF      		out 92-32,r24
- 160 00ac 80BF      		out 80-32,r24
- 161 00ae 20BF      		out 80-32,r18
- 162 00b0 95BF      		out 85-32,r25
- 163               	/* #APP */
- 164               	 ;  157 "BuildUP.c" 1
- 165 00b2 8895      		sleep
- 166               	 ;  0 "" 2
- 167               	/* #NOAPP */
- 168 00b4 00C0      		rjmp .L24
- 169               	.L25:
- 170 00b6 0895      		ret
- 172               	.global	__vector_3
- 174               	__vector_3:
- 175 00b8 1F92      		push __zero_reg__
- 176 00ba 0F92      		push r0
- 177 00bc 0FB6      		in r0,__SREG__
- 178 00be 0F92      		push r0
- 179 00c0 1124      		clr __zero_reg__
- 180 00c2 8F93      		push r24
- 181 00c4 9F93      		push r25
- 182               	/* prologue: Signal */
- 183               	/* frame size = 0 */
- 184 00c6 8091 0000 		lds r24,downcounter
- 185 00ca 9091 0000 		lds r25,(downcounter)+1
- 186 00ce 0197      		sbiw r24,1
- 187 00d0 9093 0000 		sts (downcounter)+1,r25
- 188 00d4 8093 0000 		sts downcounter,r24
- 189 00d8 8091 0000 		lds r24,upcounter
- 190 00dc 9091 0000 		lds r25,(upcounter)+1
- 191 00e0 0196      		adiw r24,1
- 192 00e2 9093 0000 		sts (upcounter)+1,r25
- 193 00e6 8093 0000 		sts upcounter,r24
- 194               	/* epilogue start */
- 195 00ea 9F91      		pop r25
- 196 00ec 8F91      		pop r24
- 197 00ee 0F90      		pop r0
- 198 00f0 0FBE      		out __SREG__,r0
- 199 00f2 0F90      		pop r0
- 200 00f4 1F90      		pop __zero_reg__
- 201 00f6 1895      		reti
- 203               	.global	mode
- 204               		.section	.noinit,"aw",@nobits
- 207               	mode:
- 208 0000 00        		.skip 1,0
- 209               		.comm downcounter,2,1
- 210               		.comm upcounter,2,1
- 211               	.global __do_clear_bss
+ 148 009e 18BA      		out 56-32,__zero_reg__
+ 149 00a0 83E0      		ldi r24,lo8(3)
+ 150 00a2 22E0      		ldi r18,lo8(2)
+ 151 00a4 90E7      		ldi r25,lo8(112)
+ 152               	.L24:
+ 153               	/* #APP */
+ 154               	 ;  152 "BuildUP.c" 1
+ 155 00a6 F894      		cli
+ 156               	 ;  0 "" 2
+ 157               	/* #NOAPP */
+ 158 00a8 8CBF      		out 92-32,r24
+ 159 00aa 80BF      		out 80-32,r24
+ 160 00ac 20BF      		out 80-32,r18
+ 161 00ae 95BF      		out 85-32,r25
+ 162               	/* #APP */
+ 163               	 ;  157 "BuildUP.c" 1
+ 164 00b0 8895      		sleep
+ 165               	 ;  0 "" 2
+ 166               	/* #NOAPP */
+ 167 00b2 00C0      		rjmp .L24
+ 168               	.L25:
+ 169 00b4 0895      		ret
+ 171               	.global	__vector_3
+ 173               	__vector_3:
+ 174 00b6 1F92      		push __zero_reg__
+ 175 00b8 0F92      		push r0
+ 176 00ba 0FB6      		in r0,__SREG__
+ 177 00bc 0F92      		push r0
+ 178 00be 1124      		clr __zero_reg__
+ 179 00c0 8F93      		push r24
+ 180 00c2 9F93      		push r25
+ 181               	/* prologue: Signal */
+ 182               	/* frame size = 0 */
+ 183 00c4 8091 0000 		lds r24,downcounter
+ 184 00c8 9091 0000 		lds r25,(downcounter)+1
+ 185 00cc 0197      		sbiw r24,1
+ 186 00ce 9093 0000 		sts (downcounter)+1,r25
+ 187 00d2 8093 0000 		sts downcounter,r24
+ 188 00d6 8091 0000 		lds r24,upcounter
+ 189 00da 9091 0000 		lds r25,(upcounter)+1
+ 190 00de 0196      		adiw r24,1
+ 191 00e0 9093 0000 		sts (upcounter)+1,r25
+ 192 00e4 8093 0000 		sts upcounter,r24
+ 193               	/* epilogue start */
+ 194 00e8 9F91      		pop r25
+ 195 00ea 8F91      		pop r24
+ 196 00ec 0F90      		pop r0
+ 197 00ee 0FBE      		out __SREG__,r0
+ 198 00f0 0F90      		pop r0
+ 199 00f2 1F90      		pop __zero_reg__
+ 200 00f4 1895      		reti
+ 202               	.global	mode
+ 203               		.section	.noinit,"aw",@nobits
+ 206               	mode:
+ 207 0000 00        		.skip 1,0
+ 208               		.comm downcounter,2,1
+ 209               		.comm upcounter,2,1
+ 210               	.global __do_clear_bss
 DEFINED SYMBOLS
                             *ABS*:00000000 BuildUP.c
-C:\Users\owner\AppData\Local\Temp/ccwNXSel.s:2      *ABS*:0000003f __SREG__
-C:\Users\owner\AppData\Local\Temp/ccwNXSel.s:3      *ABS*:0000003e __SP_H__
-C:\Users\owner\AppData\Local\Temp/ccwNXSel.s:4      *ABS*:0000003d __SP_L__
-C:\Users\owner\AppData\Local\Temp/ccwNXSel.s:5      *ABS*:00000034 __CCP__
-C:\Users\owner\AppData\Local\Temp/ccwNXSel.s:6      *ABS*:00000000 __tmp_reg__
-C:\Users\owner\AppData\Local\Temp/ccwNXSel.s:7      *ABS*:00000001 __zero_reg__
-C:\Users\owner\AppData\Local\Temp/ccwNXSel.s:11     .init3:00000000 init
-C:\Users\owner\AppData\Local\Temp/ccwNXSel.s:207    .noinit:00000000 mode
-C:\Users\owner\AppData\Local\Temp/ccwNXSel.s:51     .text:00000000 delay
+C:\Users\owner\AppData\Local\Temp/ccWuxHnR.s:2      *ABS*:0000003f __SREG__
+C:\Users\owner\AppData\Local\Temp/ccWuxHnR.s:3      *ABS*:0000003e __SP_H__
+C:\Users\owner\AppData\Local\Temp/ccWuxHnR.s:4      *ABS*:0000003d __SP_L__
+C:\Users\owner\AppData\Local\Temp/ccWuxHnR.s:5      *ABS*:00000034 __CCP__
+C:\Users\owner\AppData\Local\Temp/ccWuxHnR.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\owner\AppData\Local\Temp/ccWuxHnR.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\owner\AppData\Local\Temp/ccWuxHnR.s:11     .init3:00000000 init
+C:\Users\owner\AppData\Local\Temp/ccWuxHnR.s:206    .noinit:00000000 mode
+C:\Users\owner\AppData\Local\Temp/ccWuxHnR.s:51     .text:00000000 delay
                             *COM*:00000002 downcounter
-C:\Users\owner\AppData\Local\Temp/ccwNXSel.s:75     .text:0000001e blink
+C:\Users\owner\AppData\Local\Temp/ccWuxHnR.s:75     .text:0000001e blink
                             *COM*:00000002 upcounter
-C:\Users\owner\AppData\Local\Temp/ccwNXSel.s:135    .text:0000008c main
-C:\Users\owner\AppData\Local\Temp/ccwNXSel.s:174    .text:000000b8 __vector_3
+C:\Users\owner\AppData\Local\Temp/ccWuxHnR.s:135    .text:0000008c main
+C:\Users\owner\AppData\Local\Temp/ccWuxHnR.s:173    .text:000000b6 __vector_3
 
 UNDEFINED SYMBOLS
 __do_clear_bss

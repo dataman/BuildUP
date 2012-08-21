@@ -3,11 +3,11 @@ BuildUP.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         00000168  00000000  00000000  00000074  2**1
+  0 .text         00000166  00000000  00000000  00000074  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .bss          00000004  00800060  00800060  000001dc  2**0
+  1 .bss          00000004  00800060  00800060  000001da  2**0
                   ALLOC
-  2 .noinit       00000001  00800064  00800064  000001dc  2**0
+  2 .noinit       00000001  00800064  00800064  000001da  2**0
                   ALLOC
 
 Disassembly of section .text:
@@ -16,7 +16,7 @@ Disassembly of section .text:
    0:	09 c0       	rjmp	.+18     	; 0x14 <__ctors_end>
    2:	33 c0       	rjmp	.+102    	; 0x6a <__bad_interrupt>
    4:	32 c0       	rjmp	.+100    	; 0x6a <__bad_interrupt>
-   6:	8e c0       	rjmp	.+284    	; 0x124 <__vector_3>
+   6:	8d c0       	rjmp	.+282    	; 0x122 <__vector_3>
    8:	30 c0       	rjmp	.+96     	; 0x6a <__bad_interrupt>
    a:	2f c0       	rjmp	.+94     	; 0x6a <__bad_interrupt>
    c:	2e c0       	rjmp	.+92     	; 0x6a <__bad_interrupt>
@@ -49,8 +49,8 @@ Disassembly of section .text:
   40:	10 f0       	brcs	.+4      	; 0x46 <__SREG__+0x7>
   42:	10 92 64 00 	sts	0x0064, r1
   46:	14 be       	out	0x34, r1	; 52
-  48:	81 e0       	ldi	r24, 0x01	; 1
-  4a:	88 bb       	out	0x18, r24	; 24
+  48:	18 ba       	out	0x18, r1	; 24
+  4a:	81 e0       	ldi	r24, 0x01	; 1
   4c:	87 bb       	out	0x17, r24	; 23
   4e:	83 bf       	out	0x33, r24	; 51
   50:	82 e0       	ldi	r24, 0x02	; 2
@@ -71,7 +71,7 @@ Disassembly of section .text:
   62:	b1 07       	cpc	r27, r17
   64:	e1 f7       	brne	.-8      	; 0x5e <.do_clear_bss_loop>
   66:	48 d0       	rcall	.+144    	; 0xf8 <main>
-  68:	7d c0       	rjmp	.+250    	; 0x164 <_exit>
+  68:	7c c0       	rjmp	.+248    	; 0x162 <_exit>
 
 0000006a <__bad_interrupt>:
   6a:	ca cf       	rjmp	.-108    	; 0x0 <__vectors>
@@ -137,52 +137,51 @@ Disassembly of section .text:
   fc:	88 23       	and	r24, r24
   fe:	19 f0       	breq	.+6      	; 0x106 <main+0xe>
  100:	81 30       	cpi	r24, 0x01	; 1
- 102:	79 f4       	brne	.+30     	; 0x122 <main+0x2a>
+ 102:	71 f4       	brne	.+28     	; 0x120 <main+0x28>
  104:	02 c0       	rjmp	.+4      	; 0x10a <main+0x12>
  106:	c1 df       	rcall	.-126    	; 0x8a <blink>
  108:	08 95       	ret
- 10a:	8f e1       	ldi	r24, 0x1F	; 31
- 10c:	88 bb       	out	0x18, r24	; 24
- 10e:	83 e0       	ldi	r24, 0x03	; 3
- 110:	22 e0       	ldi	r18, 0x02	; 2
- 112:	90 e7       	ldi	r25, 0x70	; 112
- 114:	f8 94       	cli
- 116:	8c bf       	out	0x3c, r24	; 60
- 118:	80 bf       	out	0x30, r24	; 48
- 11a:	20 bf       	out	0x30, r18	; 48
- 11c:	95 bf       	out	0x35, r25	; 53
- 11e:	88 95       	sleep
- 120:	f9 cf       	rjmp	.-14     	; 0x114 <main+0x1c>
- 122:	08 95       	ret
+ 10a:	18 ba       	out	0x18, r1	; 24
+ 10c:	83 e0       	ldi	r24, 0x03	; 3
+ 10e:	22 e0       	ldi	r18, 0x02	; 2
+ 110:	90 e7       	ldi	r25, 0x70	; 112
+ 112:	f8 94       	cli
+ 114:	8c bf       	out	0x3c, r24	; 60
+ 116:	80 bf       	out	0x30, r24	; 48
+ 118:	20 bf       	out	0x30, r18	; 48
+ 11a:	95 bf       	out	0x35, r25	; 53
+ 11c:	88 95       	sleep
+ 11e:	f9 cf       	rjmp	.-14     	; 0x112 <main+0x1a>
+ 120:	08 95       	ret
 
-00000124 <__vector_3>:
- 124:	1f 92       	push	r1
- 126:	0f 92       	push	r0
- 128:	0f b6       	in	r0, 0x3f	; 63
- 12a:	0f 92       	push	r0
- 12c:	11 24       	eor	r1, r1
- 12e:	8f 93       	push	r24
- 130:	9f 93       	push	r25
- 132:	80 91 60 00 	lds	r24, 0x0060
- 136:	90 91 61 00 	lds	r25, 0x0061
- 13a:	01 97       	sbiw	r24, 0x01	; 1
- 13c:	90 93 61 00 	sts	0x0061, r25
- 140:	80 93 60 00 	sts	0x0060, r24
- 144:	80 91 62 00 	lds	r24, 0x0062
- 148:	90 91 63 00 	lds	r25, 0x0063
- 14c:	01 96       	adiw	r24, 0x01	; 1
- 14e:	90 93 63 00 	sts	0x0063, r25
- 152:	80 93 62 00 	sts	0x0062, r24
- 156:	9f 91       	pop	r25
- 158:	8f 91       	pop	r24
- 15a:	0f 90       	pop	r0
- 15c:	0f be       	out	0x3f, r0	; 63
- 15e:	0f 90       	pop	r0
- 160:	1f 90       	pop	r1
- 162:	18 95       	reti
+00000122 <__vector_3>:
+ 122:	1f 92       	push	r1
+ 124:	0f 92       	push	r0
+ 126:	0f b6       	in	r0, 0x3f	; 63
+ 128:	0f 92       	push	r0
+ 12a:	11 24       	eor	r1, r1
+ 12c:	8f 93       	push	r24
+ 12e:	9f 93       	push	r25
+ 130:	80 91 60 00 	lds	r24, 0x0060
+ 134:	90 91 61 00 	lds	r25, 0x0061
+ 138:	01 97       	sbiw	r24, 0x01	; 1
+ 13a:	90 93 61 00 	sts	0x0061, r25
+ 13e:	80 93 60 00 	sts	0x0060, r24
+ 142:	80 91 62 00 	lds	r24, 0x0062
+ 146:	90 91 63 00 	lds	r25, 0x0063
+ 14a:	01 96       	adiw	r24, 0x01	; 1
+ 14c:	90 93 63 00 	sts	0x0063, r25
+ 150:	80 93 62 00 	sts	0x0062, r24
+ 154:	9f 91       	pop	r25
+ 156:	8f 91       	pop	r24
+ 158:	0f 90       	pop	r0
+ 15a:	0f be       	out	0x3f, r0	; 63
+ 15c:	0f 90       	pop	r0
+ 15e:	1f 90       	pop	r1
+ 160:	18 95       	reti
 
-00000164 <_exit>:
- 164:	f8 94       	cli
+00000162 <_exit>:
+ 162:	f8 94       	cli
 
-00000166 <__stop_program>:
- 166:	ff cf       	rjmp	.-2      	; 0x166 <__stop_program>
+00000164 <__stop_program>:
+ 164:	ff cf       	rjmp	.-2      	; 0x164 <__stop_program>
