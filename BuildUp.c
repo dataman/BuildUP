@@ -110,11 +110,11 @@ void delay(uint16_t n) {
 }
 
 
-#define DELAYON         30     // How long is LED on, not variable
-#define DELAYOFFSTART   210    // How long is LED off, variable
+#define DELAYON         5      // How long is LED on, not variable
+#define DELAYOFFSTART   215    // How long is LED off, variable
 #define DELAYSTEP       30     // Step to decrease delay
-#define DELAYSTOP       30     // Don't step lower than this
-#define UPCOUNTERMAX    1200   // Max Upcounter for next step down
+#define DELAYSTOP       5      // Don't step lower than this
+#define UPCOUNTERMAX    3600   // Max Upcounter for next step down
 
 void blink();
 void blink() {
